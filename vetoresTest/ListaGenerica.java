@@ -1,10 +1,11 @@
-public class VetorDeStrings {
+public class ListaGenerica<T> {
 
-    private String[] elementos;
+    private T[] elementos;
     private int tamanho;
 
-    public VetorDeStrings(int capacidade) {
-        this.elementos = new String[capacidade];
+    @SuppressWarnings("unchecked")
+    public ListaGenerica(int capacidade, Class<T> T) {
+        this.elementos = (T[]) new Object[capacidade];
         this.tamanho = 0;
     }
 
@@ -21,7 +22,7 @@ public class VetorDeStrings {
         return true;
     }
 
-    public boolean adicionaElementoEmQualquerPosicao(String elemento, int posicao) throws Exception {
+    public boolean adicionaElementoEmQualquerPosicao(Object elemento, int posicao) throws Exception {
 
         if (this.tamanho == this.elementos.length) {
             this.aumentarCapacidade();
@@ -38,7 +39,7 @@ public class VetorDeStrings {
             this.elementos[i + 1] = this.elementos[i];
         }
 
-        this.elementos[posicao] = elemento;
+        this.elementos[posicao] = (T) elemento;
         this.tamanho++;
 
         return true;
@@ -47,24 +48,24 @@ public class VetorDeStrings {
 
     public void aumentarCapacidade() {
 
-        String[] novosElementos = new String[this.elementos.length * 2];
+        Object[] novosElementos = new Object[this.elementos.length * 2];
 
         for (int i = 0; i < this.elementos.length; i++) {
             novosElementos[i] = this.elementos[i];
         }
 
-        this.elementos = novosElementos;
+        this.elementos = (T[]) novosElementos;
 
     }
 
-    public boolean adicionaElemento(String elemento) {
+    public boolean adicionaElemento(Object elemento) {
 
         if (this.tamanho == this.elementos.length) {
             this.aumentarCapacidade();
         }
 
         if (this.tamanho < this.elementos.length) {
-            this.elementos[this.tamanho] = elemento;
+            this.elementos[this.tamanho] = (T) elemento;
             this.tamanho++;
             return true;
         }
@@ -76,14 +77,14 @@ public class VetorDeStrings {
         return this.tamanho;
     }
 
-    public String getElementoByPosicao(int posicao) throws Exception {
+    public Object getElementoByPosicao(int posicao) throws Exception {
         if (posicao >= 0 && posicao < this.elementos.length) {
             return this.elementos[posicao];
         }
         throw new IllegalArgumentException("Posição inválida.");
     }
 
-    public int buscaPosicaoByElemento(String elemento) {
+    public int buscaPosicaoByElemento(Object elemento) {
         for (int i = 0; i < this.tamanho; i++) {
             if (this.elementos[i].equals(elemento)) {
                 return i;
