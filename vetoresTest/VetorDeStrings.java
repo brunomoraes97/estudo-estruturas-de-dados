@@ -17,4 +17,26 @@ public class VetorDeStrings {
         return false;
     }
 
+    public int getTamanho() {
+        return this.tamanho;
+    }
+
+    public String getElementoByPosicao(int posicao) throws Exception {
+        if (posicao >= 0 && posicao < this.elementos.length) {
+            return this.elementos[posicao];
+        } throw new IllegalArgumentException("Posição inválida.");
+    }
+
+    public void imprimeElementos() {
+        for (int i = 0; i < this.tamanho; i++) {
+            System.out.print(this.elementos[i] + " > ");
+        }
+    }
+
+    public void imprimeListaCompleta() {
+        for (int i = 0; i < this.elementos.length; i++) {
+            System.out.print(this.elementos[i] + " > ");
+        }
+    }
+
 }
