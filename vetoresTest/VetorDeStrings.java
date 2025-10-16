@@ -9,7 +9,11 @@ public class VetorDeStrings {
     }
 
     public boolean adicionaElemento(String elemento) {
-        if 
+        if (this.tamanho < this.elementos.length) {
+            this.elementos[this.tamanho] = elemento;
+            return true;
+        }
+        return false;
     }
-    
+
 }
