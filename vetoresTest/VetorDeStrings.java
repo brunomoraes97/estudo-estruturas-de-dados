@@ -9,7 +9,11 @@ public class VetorDeStrings {
     }
 
     public boolean adicionaElementoEmQualquerPosicao(String elemento, int posicao) throws Exception {
-    
+
+        if (this.tamanho == this.elementos.length) {
+            this.aumentarCapacidade();
+        }
+
         // Verifica se a posição é possível
         if (!(posicao >= 0 && posicao < this.elementos.length)) {
             throw new IllegalArgumentException("Posição inválida");
@@ -23,17 +27,35 @@ public class VetorDeStrings {
 
         this.elementos[posicao] = elemento;
         this.tamanho++;
-        
+
         return true;
 
     }
 
+    public void aumentarCapacidade() {
+
+        String[] novosElementos = new String[this.elementos.length * 2];
+
+        for (int i = 0; i < this.elementos.length; i++) {
+            novosElementos[i] = this.elementos[i];
+        }
+
+        this.elementos = novosElementos;
+
+    }
+
     public boolean adicionaElemento(String elemento) {
+
+        if (this.tamanho == this.elementos.length) {
+            this.aumentarCapacidade();
+        }
+
         if (this.tamanho < this.elementos.length) {
             this.elementos[this.tamanho] = elemento;
             this.tamanho++;
             return true;
         }
+
         return false;
     }
 
