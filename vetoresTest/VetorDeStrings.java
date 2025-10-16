@@ -8,6 +8,26 @@ public class VetorDeStrings {
         this.tamanho = 0;
     }
 
+    public boolean adicionaElementoEmQualquerPosicao(String elemento, int posicao) throws Exception {
+    
+        // Verifica se a posição é possível
+        if (!(posicao >= 0 && posicao < this.elementos.length)) {
+            throw new IllegalArgumentException("Posição inválida");
+        }
+
+        for (int i = this.tamanho - 1; i >= posicao; i--) {
+            // Move todo mundo para a direita
+            // Isto é, para uma posição adiante
+            this.elementos[i + 1] = this.elementos[i];
+        }
+
+        this.elementos[posicao] = elemento;
+        this.tamanho++;
+        
+        return true;
+
+    }
+
     public boolean adicionaElemento(String elemento) {
         if (this.tamanho < this.elementos.length) {
             this.elementos[this.tamanho] = elemento;
@@ -24,7 +44,18 @@ public class VetorDeStrings {
     public String getElementoByPosicao(int posicao) throws Exception {
         if (posicao >= 0 && posicao < this.elementos.length) {
             return this.elementos[posicao];
-        } throw new IllegalArgumentException("Posição inválida.");
+        }
+        throw new IllegalArgumentException("Posição inválida.");
+    }
+
+    public int buscaPosicaoByElemento(String elemento) {
+        for (int i = 0; i < this.tamanho; i++) {
+            if (this.elementos[i].equals(elemento)) {
+                return i;
+            }
+
+        }
+        return -1; // since it's not Integer, but int
     }
 
     public void imprimeElementos() {
